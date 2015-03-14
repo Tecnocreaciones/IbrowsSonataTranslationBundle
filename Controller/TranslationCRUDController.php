@@ -52,7 +52,12 @@ class TranslationCRUDController extends CRUDController
         if ($parameters->get('pk')) {
             $translation = $transUnitManager->updateTranslation($transUnit, $locale, $content, true);
         } else {
-            $translation = $transUnitManager->addTranslation($transUnit, $locale, $content, null, true);
+            $files = $this->get('lexik_translation.translation_storage')->getFilesByLocalesAndDomains(array($locale), array($transUnit->getDomain()));
+            $file = null;
+            if(count($files) > 0){
+                $file = $files[0];
+            }
+            $translation = $transUnitManager->addTranslation($transUnit, $locale, $content, $file, true);
         }
         
         if ($request->query->get('clear_cache')) {
