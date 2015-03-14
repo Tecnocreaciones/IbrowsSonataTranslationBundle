@@ -3,7 +3,7 @@
 namespace Ibrows\SonataTranslationBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
-
+use Symfony\Component\HttpFoundation\Request;
 use Sonata\AdminBundle\Controller\CRUDController;
 
 class TranslationCRUDController extends CRUDController
@@ -15,9 +15,8 @@ class TranslationCRUDController extends CRUDController
      * @throws AccessDeniedException
      * @return \Symfony\Component\HttpFoundation\Response|Ambigous <\Symfony\Component\HttpFoundation\Response, \Symfony\Component\HttpFoundation\RedirectResponse>
      */
-    public function editAction($id = null)
+    public function editAction($id = null,Request $request = null)
     {
-        $request = $this->getRequest();
         if (!$request->isMethod('POST')) {
             return $this->redirect($this->admin->generateUrl('list'));
         }
